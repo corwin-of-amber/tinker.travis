@@ -3,6 +3,10 @@ language: node_js
 node_js:
 - "8"
 
+env:
+  global:
+  - OPAM_LINUX_URL=https://github.com/ocaml/opam/releases/download/2.0.4/opam-2.0.4-x86_64-linux
+
 matrix:
   include:
   - os: linux
@@ -21,9 +25,8 @@ addons:
 
 install:
 - if [ $TRAVIS_OS_NAME = linux ]; then
-  sudo curl -sL https://github.com/ocaml/opam/releases/download/2.0.4/opam-2.0.4-x86_64-linux -o /usr/bin/opam
-  sudo chmod 755 /usr/bin/opam
-  fi
+    sudo curl -sL $OPAM_LINUX_URL -o /usr/bin/opam &&
+    sudo chmod 755 /usr/bin/opam; fi
 - if [ $TRAVIS_OS_NAME = osx ]; then brew info opam; fi
 
 script:
