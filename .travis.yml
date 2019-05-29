@@ -2,18 +2,32 @@ language: node_js
 
 node_js:
 - "8"
-os:
-- linux
-- osx
+
+matrix:
+  include:
+  - os: linux
+    env: FAKE_ARCH=32
+  - os: osx
+    env: FAKE_ARCH=64
 
 addons:
   apt:
     packages:
     - opam
   homebrew:
+    update: true
     packages:
     - opam
 
-script: |
-  opam --version
-  node -v
+install:
+- if [ $TRAVIS_OS_NAME = linux ]; then
+  sudo curl -sL https://github.com/ocaml/opam/releases/download/2.0.4/opam-2.0.4-x86_64-linux -o /usr/bin/opam
+  sudo chmod 755 /usr/bin/opam
+  fi
+- if [ $TRAVIS_OS_NAME = osx ]; then brew info opam; fi
+
+script:
+- if [ $TRAVIS_OS_NAME = linux]; then lsb_release -a; done
+- opam --version
+- node -v
+- echo $FAKE_ARCH
