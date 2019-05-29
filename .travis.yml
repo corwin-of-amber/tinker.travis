@@ -7,6 +7,12 @@ env:
   global:
   - OPAM_LINUX_URL=https://github.com/ocaml/opam/releases/download/2.0.4/opam-2.0.4-x86_64-linux
 
+cache:
+  apt: true
+  directories:
+  - /usr/local/Homebrew
+  - $HOME/.opam
+
 matrix:
   include:
   - os: linux
@@ -22,6 +28,9 @@ addons:
     update: true
     packages:
     - opam
+
+before_cache:
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew cleanup; fi
 
 install:
 - echo $TRAVIS_OS_NAME
