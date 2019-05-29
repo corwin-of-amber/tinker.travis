@@ -30,7 +30,7 @@ install:
 - if [ $TRAVIS_OS_NAME = osx ]; then brew info opam; fi
 
 script:
-- if [ $TRAVIS_OS_NAME = linux]; then lsb_release -a; done
+- if [ $TRAVIS_OS_NAME = linux ]; then lsb_release -a; fi
 - opam --version
 - node -v
 - echo $FAKE_ARCH
