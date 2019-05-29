@@ -24,13 +24,14 @@ addons:
     - opam
 
 install:
-- if [ $TRAVIS_OS_NAME = linux ]; then
+- echo $TRAVIS_OS_NAME
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     sudo curl -sL $OPAM_LINUX_URL -o /usr/bin/opam &&
     sudo chmod 755 /usr/bin/opam; fi
-- if [ $TRAVIS_OS_NAME = osx ]; then brew info opam; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew info opam; fi
 
 script:
-- if [ $TRAVIS_OS_NAME = linux ]; then lsb_release -a; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then lsb_release -a; fi
 - opam --version
 - node -v
 - echo $FAKE_ARCH
